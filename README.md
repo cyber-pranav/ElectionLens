@@ -12,6 +12,8 @@ Indian elections generate massive amounts of complex data — vote tallies, turn
 
 ## Architecture
 
+![ElectionLens Architecture](architecture.png)
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                      STREAMLIT FRONTEND                         │
@@ -64,8 +66,8 @@ Indian elections generate massive amounts of complex data — vote tallies, turn
 
 ```bash
 # 1. Clone the repository
-git clone <your-repo-url>
-cd electionlens
+git clone https://github.com/cyber-pranav/ElectionLens.git
+cd ElectionLens
 
 # 2. Create and activate a virtual environment
 python -m venv venv
@@ -124,7 +126,7 @@ Try these queries in the **"Ask Anything"** tab:
 ## Running Tests
 
 ```bash
-cd electionlens
+cd ElectionLens
 pytest tests/ -v
 ```
 
@@ -133,6 +135,7 @@ pytest tests/ -v
 ```
 electionlens/
 ├── agents/                    # ADK agent definitions
+│   ├── __init__.py
 │   ├── orchestrator.py        # Root orchestrator with sub-agents
 │   ├── data_ingestion.py      # Data fetch agent
 │   ├── analysis.py            # Quantitative analysis agent
@@ -140,6 +143,7 @@ electionlens/
 │   ├── monitoring.py          # Anomaly detection agent
 │   └── visualization.py       # Chart data generation agent
 ├── tools/                     # Shared tool functions
+│   ├── __init__.py
 │   ├── database.py            # SQLite ORM + CRUD
 │   ├── election_api.py        # Election data fetch helpers
 │   └── gemini_tools.py        # Gemini generation wrappers
@@ -152,6 +156,7 @@ electionlens/
 ├── tests/
 │   ├── test_agents.py         # Agent integration tests
 │   └── test_tools.py          # Tool function unit tests
+├── architecture.png           # System architecture diagram
 ├── .env.example
 ├── requirements.txt
 ├── run.py                     # Single entry point
