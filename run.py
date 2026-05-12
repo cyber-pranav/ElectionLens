@@ -20,11 +20,11 @@ def main():
     frontend_port = os.getenv("FRONTEND_PORT", "8501")
 
     print("=" * 60)
-    print("🗳️  ElectionLens — Election Data Intelligence System")
+    print("ElectionLens - Election Data Intelligence System")
     print("=" * 60)
-    print(f"  API Server   → http://localhost:{port}")
-    print(f"  Frontend     → http://localhost:{frontend_port}")
-    print(f"  Health Check → http://localhost:{port}/health")
+    print(f"  API Server   -> http://localhost:{port}")
+    print(f"  Frontend     -> http://localhost:{frontend_port}")
+    print(f"  Health Check -> http://localhost:{port}/health")
     print("=" * 60)
     print()
 
@@ -56,11 +56,11 @@ def main():
             cwd=project_root,
         )
     except KeyboardInterrupt:
-        print("\n🛑 Shutting down ElectionLens...")
+        print("\nStopping ElectionLens...")
     finally:
         api_process.terminate()
         api_process.wait(timeout=5)
-        print("✅ ElectionLens stopped.")
+        print("ElectionLens stopped.")
 
 
 if __name__ == "__main__":
