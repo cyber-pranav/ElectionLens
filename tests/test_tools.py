@@ -1,5 +1,6 @@
 """
 Tests for ElectionLens agent tools.
+Tool functions are tested independently of ADK agent declarations.
 """
 
 import json
@@ -94,10 +95,10 @@ class TestElectionAPI:
 
 
 class TestMonitoringTools:
-    """Tests for monitoring agent tool functions."""
+    """Tests for monitoring tool functions (no ADK dependency)."""
 
     def test_detect_anomaly_finds_high_turnout(self):
-        from agents.monitoring import detect_anomaly
+        from tools.monitoring_tools import detect_anomaly
         result = detect_anomaly()
         assert result["anomalies_found"] >= 1
         # Wayanad has 73.6% turnout — should be flagged
@@ -105,7 +106,7 @@ class TestMonitoringTools:
         assert "Wayanad" in names
 
     def test_check_close_contest(self):
-        from agents.monitoring import check_close_contest
+        from tools.monitoring_tools import check_close_contest
         result = check_close_contest()
         assert result["close_contests_found"] >= 1
         names = [c["constituency"] for c in result["close_contests"]]
@@ -113,71 +114,71 @@ class TestMonitoringTools:
         assert "Amritsar" in names
 
     def test_track_recount_risk(self):
-        from agents.monitoring import track_recount_risk
+        from tools.monitoring_tools import track_recount_risk
         result = track_recount_risk()
         assert result["risks_found"] >= 1
         names = [r["constituency"] for r in result["risks"]]
         assert "Amritsar" in names
 
     def test_run_full_scan(self):
-        from agents.monitoring import run_full_scan
+        from tools.monitoring_tools import run_full_scan
         result = run_full_scan()
         assert result["total_alerts"] >= 2
 
 
 class TestAnalysisTools:
-    """Tests for analysis agent tool functions."""
+    """Tests for analysis tool functions (no ADK dependency)."""
 
     def test_compute_vote_share(self):
-        from agents.analysis import compute_vote_share
+        from tools.analysis_tools import compute_vote_share
         result = compute_vote_share("BJP")
         assert result["party"] == "BJP"
         assert result["vote_share_percent"] > 0
         assert result["seats_won"] >= 1
 
     def test_rank_candidates(self):
-        from agents.analysis import rank_candidates
+        from tools.analysis_tools import rank_candidates
         result = rank_candidates("Varanasi")
         assert result["winner"] == "Narendra Modi"
         assert result["winner_party"] == "BJP"
         assert result["margin"] == 152513
 
     def test_rank_candidates_not_found(self):
-        from agents.analysis import rank_candidates
+        from tools.analysis_tools import rank_candidates
         result = rank_candidates("Nowhere")
         assert "error" in result
 
     def test_trend_analysis(self):
-        from agents.analysis import trend_analysis
+        from tools.analysis_tools import trend_analysis
         result = trend_analysis("BJP")
         assert result["seats_won"] >= 1
         assert "Varanasi" in result["constituencies_won"]
 
 
 class TestVisualizationTools:
-    """Tests for visualization agent tool functions."""
+    """Tests for visualization tool functions (no ADK dependency)."""
 
     def test_build_pie_chart(self):
-        from agents.visualization import build_pie_chart_data
+        from tools.visualization_tools import build_pie_chart_data
         result = build_pie_chart_data("Varanasi")
         assert result["chart_type"] == "pie"
         assert len(result["labels"]) >= 2
         assert len(result["values"]) >= 2
 
     def test_build_bar_chart(self):
-        from agents.visualization import build_bar_chart_data
+        from tools.visualization_tools import build_bar_chart_data
         result = build_bar_chart_data(constituency="Varanasi")
         assert result["chart_type"] == "bar"
         assert len(result["labels"]) >= 2
 
     def test_build_turnout_chart(self):
-        from agents.visualization import build_turnout_chart_data
+        from tools.visualization_tools import build_turnout_chart_data
         result = build_turnout_chart_data()
         assert result["chart_type"] == "bar"
         assert len(result["labels"]) >= 20
 
     def test_build_seats_chart(self):
-        from agents.visualization import build_seats_chart_data
+        from tools.visualization_tools import build_seats_chart_data
         result = build_seats_chart_data()
         assert result["chart_type"] == "bar"
         assert "BJP" in result["labels"]

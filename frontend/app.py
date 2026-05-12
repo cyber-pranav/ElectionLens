@@ -363,7 +363,7 @@ with tab2:
                 # Build chart data locally for instant rendering
                 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
                 try:
-                    from agents.visualization import build_pie_chart_data, build_bar_chart_data
+                    from tools.visualization_tools import build_pie_chart_data, build_bar_chart_data
                     from tools.database import init_db
                     init_db()
 
@@ -376,7 +376,7 @@ with tab2:
             st.markdown("---")
             col3, col4 = st.columns(2)
             try:
-                from agents.visualization import build_turnout_chart_data, build_margin_chart_data
+                from tools.visualization_tools import build_turnout_chart_data, build_margin_chart_data
 
                 with col3:
                     st.markdown("#### 📈 Turnout Comparison (All)")
@@ -414,7 +414,7 @@ with tab2:
                 st.error(party_result["error"])
 
             try:
-                from agents.visualization import build_bar_chart_data
+                from tools.visualization_tools import build_bar_chart_data
                 bar_data = build_bar_chart_data(state="")
                 render_plotly_chart(bar_data)
             except Exception:

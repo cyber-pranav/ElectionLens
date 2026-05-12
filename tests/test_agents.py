@@ -1,7 +1,7 @@
 """
 Tests for ElectionLens agents (integration-level).
 These test that agents can be instantiated and their tool functions work.
-Full agent.run() tests require a valid GEMINI_API_KEY.
+Requires google-adk to be installed — skipped automatically if unavailable.
 """
 
 import os
@@ -11,6 +11,12 @@ import pytest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from tools.database import init_db
+
+# Skip all tests in this module if google-adk is not installed
+pytestmark = pytest.mark.skipif(
+    not __import__("importlib").util.find_spec("google.adk"),
+    reason="google-adk not installed — agent instantiation tests skipped",
+)
 
 
 @pytest.fixture(autouse=True)

@@ -161,5 +161,5 @@ def initialize() -> None:
     """Initialize the database and run startup monitoring scan."""
     init_db()
     # Run monitoring scan on startup so alerts are pre-populated
-    from agents.monitoring import run_full_scan
+    from tools.monitoring_tools import run_full_scan
     run_full_scan(2024)
